@@ -24,8 +24,8 @@ public class UserRepository implements DAO<User> {
 
                 //TODO Create the statement strings.
                 PreparedStatement stmt = connection.prepareStatement(sql);
-                stmt.setString(1, );
-                stmt.setString(2, );
+                stmt.setString(1, "testing");
+                stmt.setString(2,"testing");
 
                 stmt.executeUpdate();
             } catch (SQLException e) {
