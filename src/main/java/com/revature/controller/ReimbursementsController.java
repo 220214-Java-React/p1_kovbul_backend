@@ -3,6 +3,7 @@ package com.revature.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.model.Reimbursements;
+import com.revature.service.ReimbursementsService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,7 +21,7 @@ public class ReimbursementsController extends HttpServlet {
     private static final ObjectMapper mapper = new ObjectMapper();
     private static final Logger logger = LogManager.getLogger(ReimbursementsController.class);
     //TODO Create Reimbursement Service
-    //private static final ReimbursementsService reimbursementsService = new ReimbursementService();
+    private static final ReimbursementsService reimbursementsService = new ReimbursementsService();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,7 +31,7 @@ public class ReimbursementsController extends HttpServlet {
             Reimbursements reimbursements = mapper.readValue(JSON, Reimbursements.class);
 
             //TODO Create reimbursementService
-            //reimbursementService.create(reimbursements);
+            reimbursementsService.create(reimbursements);
 
         } catch (Exception e) {
             logger.warn(e);
