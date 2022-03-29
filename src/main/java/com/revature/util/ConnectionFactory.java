@@ -20,11 +20,11 @@ public class ConnectionFactory {
 
 
     // this method creates a single instance if needed otherwise, returns the existing one.
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException, ClassNotFoundException {
 
         if(instance == null || instance.isClosed()){
             // url, username, password ->
-//            Class.forName("org.postgresql.Driver"); <- this may be necessary to solve no suitable driver
+            Class.forName("org.postgresql.Driver"); // this may be necessary to solve no suitable driver
             instance = DriverManager.getConnection(url, username, password);
         }
 
