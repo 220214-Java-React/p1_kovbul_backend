@@ -41,13 +41,17 @@ public class UserController extends HttpServlet {
         try {
             user = mapper.readValue(JSON, User.class);
             userService.create(user);
+
+            resp.setStatus(204);
+
         } catch (Exception e) {
             logger.warn(e);
+            resp.setStatus(500);
         }
         //Keeping this for now for info, was getting something different then brandon
         //logger.info(user);
 
-        resp.setStatus(204);
+
 
     }
 }

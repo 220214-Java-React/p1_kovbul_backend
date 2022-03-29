@@ -23,7 +23,7 @@ public class UserRepository implements DAO<User> {
             try {
                 connection = ConnectionFactory.getConnection();
                 //TODO: WIll have to come back in to add role_id
-                String sql = "insert into ers_users(username, email, password, first_name, last_name, is_active) values (?, ?, ?, ?, ?, ?)";
+                String sql = "insert into ers_users(username, email, password, first_name, last_name, is_active, role_id) values (?, ?, ?, ?, ?, ?, ?)";
 
                 //TODO Create the statement strings.
                 PreparedStatement stmt = connection.prepareStatement(sql);
@@ -33,6 +33,7 @@ public class UserRepository implements DAO<User> {
                 stmt.setString(4, user.getFirstName());
                 stmt.setString(5, user.getLastName());
                 stmt.setBoolean(6, user.getIs_Active());
+                stmt.setInt(7, user.getUserRole().ordinal());
                 //stmt.setInt(7, user.getRole_ID());
 
                 stmt.executeUpdate();
