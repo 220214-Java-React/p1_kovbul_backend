@@ -7,27 +7,36 @@ public class Reimbursements {
     private String submitted;
     private String resolved;
     private String description;
-    private String receipt;
     private Integer payment_id;
     private Integer author_id;
     private Integer resolver_id;
-    private Integer status_id;
-    private Integer type_id;
+    private ReimbursementStatuses status_id;
+    private ReimbursementTypes type_id;
 
-    public Reimbursements(Integer reimb_id, Double amount, String submitted, String resolved, String description, String receipt, Integer payment_id, Integer author_id, Integer resolver_id, Integer status_id, Integer type_id) {
+
+    public Reimbursements(Integer reimb_id, Double amount, String submitted, String resolved, String description, Integer payment_id, Integer author_id, Integer resolver_id, ReimbursementStatuses status_id, ReimbursementTypes type_id) {
         this.reimb_id = reimb_id;
         this.amount = amount;
         this.submitted = submitted;
         this.resolved = resolved;
         this.description = description;
-        this.receipt = receipt;
         this.payment_id = payment_id;
         this.author_id = author_id;
         this.resolver_id = resolver_id;
         this.status_id = status_id;
         this.type_id = type_id;
+
+
     }
 
+    public Reimbursements(Double amount, String submitted, String description, Integer author_id,ReimbursementStatuses status_id, ReimbursementTypes type_id) {
+        this.amount = amount;
+        this.submitted = submitted;
+        this.description = description;
+        this.author_id = author_id;
+        this.status_id = status_id;
+        this.type_id = type_id;
+    }
 
     public Integer getReimb_id() {
         return reimb_id;
@@ -69,13 +78,7 @@ public class Reimbursements {
         this.description = description;
     }
 
-    public String getReceipt() {
-        return receipt;
-    }
 
-    public void setReceipt(String receipt) {
-        this.receipt = receipt;
-    }
 
     public Integer getPayment_id() {
         return payment_id;
@@ -101,19 +104,19 @@ public class Reimbursements {
         this.resolver_id = resolver_id;
     }
 
-    public Integer getStatus_id() {
+    public ReimbursementStatuses getStatus_id() {
         return status_id;
     }
 
-    public void setStatus_id(Integer status_id) {
+    public void setStatus_id(ReimbursementStatuses status_id) {
         this.status_id = status_id;
     }
 
-    public Integer getType_id() {
+    public ReimbursementTypes getType_id() {
         return type_id;
     }
 
-    public void setType_id(Integer type_id) {
+    public void setType_id(ReimbursementTypes type_id) {
         this.type_id = type_id;
     }
 }

@@ -12,9 +12,31 @@ public class User implements Serializable {
     private String lastName;
     private Boolean is_Active;
     private Integer role_ID;
+    private UserRoles userRole;
 
     public User(){
 
+    }
+
+    public User(String username, String email, String password, String firstName, String lastName, UserRoles userRole) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userRole = userRole;
+    }
+
+    public User(int user_ID, String username, String email, String password, String firstName, String lastName, Boolean is_Active, Integer role_ID, UserRoles userRole) {
+        this.user_ID = user_ID;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.is_Active = is_Active;
+        this.role_ID = role_ID;
+        this.userRole = userRole;
     }
 
     public User(String username, String email, String password, String firstName, String lastName, Boolean is_Active, Integer role_ID) {
@@ -113,5 +135,13 @@ public class User implements Serializable {
 
     public void setRole_ID(Integer role_ID) {
         this.role_ID = role_ID;
+    }
+
+    public UserRoles getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRoles userRole) {
+        this.userRole = userRole;
     }
 }
