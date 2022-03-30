@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-<!--    Might not have the name as project 1, brandon used FlashPass as his-->
+    <!--    Might not have the name as project 1, brandon used FlashPass as his-->
     <display-name>Project1</display-name>
 
     <servlet>

@@ -19,7 +19,7 @@ public class ReimbursementsRepository implements DAO<Reimbursements>{
         try{
             connection = ConnectionFactory.getConnection();
 
-            String sql = "insert into ers_reimbursements(amount, submitted, resolved, description, payment_id, author_id, resolver_id, status_id, type_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "insert into ers_reimbursements(amount, submitted, resolved, description, payment_id, author_id, status_id, type_id) values (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(sql);
 
             stmt.setDouble(1, reimbursements.getAmount());
@@ -28,9 +28,11 @@ public class ReimbursementsRepository implements DAO<Reimbursements>{
             stmt.setString(4, reimbursements.getDescription());
             stmt.setInt(5, reimbursements.getPayment_id());
             stmt.setInt(6, reimbursements.getAuthor_id());
-            stmt.setInt(7, reimbursements.getResolver_id());
-            stmt.setInt(8, reimbursements.getStatus_id());
-            stmt.setInt(9, reimbursements.getType_id());
+//            stmt.setInt(7, reimbursements.getResolver_id());
+            stmt.setInt(7, reimbursements.getStatus_id().ordinal());
+            stmt.setInt(8, reimbursements.getType_id().ordinal());
+
+            stmt.executeUpdate();
 
         } catch (Exception e) {
             logger.warn(e.getMessage(), e);

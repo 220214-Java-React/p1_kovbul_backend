@@ -1,34 +1,33 @@
 package com.revature.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Reimbursements {
+public class Reimbursements implements Serializable {
 
     private Integer reimb_id;
     private Double amount;
     private Timestamp submitted;
     private Timestamp resolved;
     private String description;
-
     private Integer payment_id;
     private Integer author_id;
     private Integer resolver_id;
     private ReimbursementStatuses status_id;
     private ReimbursementTypes type_id;
 
-<<<<<<< HEAD
 
-    public Reimbursements(Integer reimb_id, Double amount, String submitted, String resolved, String description, Integer payment_id, Integer author_id, Integer resolver_id, ReimbursementStatuses status_id, ReimbursementTypes type_id) {
-=======
-    public Reimbursements(Integer reimb_id, Double amount, Timestamp submitted, Timestamp resolved, String description, Integer payment_id, Integer author_id, Integer resolver_id, Integer status_id, Integer type_id) {
->>>>>>> tylerwork
+    public Reimbursements(){
+
+    }
+
+
+    public Reimbursements(Integer reimb_id, Double amount, Timestamp submitted, Timestamp resolved, String description, Integer payment_id, Integer author_id, Integer resolver_id, ReimbursementStatuses status_id, ReimbursementTypes type_id) {
         this.reimb_id = reimb_id;
         this.amount = amount;
         this.submitted = submitted;
         this.resolved = resolved;
         this.description = description;
-<<<<<<< HEAD
-=======
         this.payment_id = payment_id;
         this.author_id = author_id;
         this.resolver_id = resolver_id;
@@ -37,12 +36,11 @@ public class Reimbursements {
 
     }
 
-    public Reimbursements(Double amount, Timestamp submitted, Timestamp resolved, String description, Integer payment_id, Integer author_id, Integer resolver_id, Integer status_id, Integer type_id) {
+    public Reimbursements(Double amount, Timestamp submitted, Timestamp resolved, String description, Integer payment_id, Integer author_id, Integer resolver_id, ReimbursementStatuses status_id, ReimbursementTypes type_id) {
         this.amount = amount;
         this.submitted = submitted;
         this.resolved = resolved;
         this.description = description;
->>>>>>> tylerwork
         this.payment_id = payment_id;
         this.author_id = author_id;
         this.resolver_id = resolver_id;
@@ -52,8 +50,8 @@ public class Reimbursements {
 
     }
 
-<<<<<<< HEAD
-    public Reimbursements(Double amount, String submitted, String description, Integer author_id,ReimbursementStatuses status_id, ReimbursementTypes type_id) {
+
+    public Reimbursements(Double amount, Timestamp submitted, String description, Integer author_id,ReimbursementStatuses status_id, ReimbursementTypes type_id) {
         this.amount = amount;
         this.submitted = submitted;
         this.description = description;
@@ -62,8 +60,8 @@ public class Reimbursements {
         this.type_id = type_id;
     }
 
-=======
->>>>>>> tylerwork
+
+
     public Integer getReimb_id() {
         return reimb_id;
     }
@@ -104,9 +102,9 @@ public class Reimbursements {
         this.description = description;
     }
 
-<<<<<<< HEAD
 
-=======
+
+
 //    public String getReceipt() {
 //        return receipt;
 //    }
@@ -114,7 +112,7 @@ public class Reimbursements {
 //    public void setReceipt(String receipt) {
 //        this.receipt = receipt;
 //    }
->>>>>>> tylerwork
+
 
     public Integer getPayment_id() {
         return payment_id;

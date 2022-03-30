@@ -26,15 +26,17 @@ public class ReimbursementsController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String JSON = req.getReader().lines().collect(Collectors.joining());
+        Reimbursements reimbursements = null;
 
         try {
-            Reimbursements reimbursements = mapper.readValue(JSON, Reimbursements.class);
-
-            //TODO Create reimbursementService
+            reimbursements = mapper.readValue(JSON, Reimbursements.class);
             reimbursementsService.create(reimbursements);
+
+            resp.setStatus(204);
 
         } catch (Exception e) {
             logger.warn(e);
+            resp.setStatus(500);
         }
     }
 }
