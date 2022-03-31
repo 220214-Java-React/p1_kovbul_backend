@@ -1,5 +1,6 @@
 package com.revature.model;
 
+import javax.jws.soap.SOAPBinding;
 import java.io.Serializable;
 
 public class User implements Serializable {
@@ -11,53 +12,10 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private Boolean is_Active;
-    private Integer role_ID;
-    private UserRoles userRole;
+    private UserRoles userRoles;
 
     public User(){
 
-    }
-
-    public User(String username, String email, String password, String firstName, String lastName, UserRoles userRole) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userRole = userRole;
-    }
-
-    public User(int user_ID, String username, String email, String password, String firstName, String lastName, Boolean is_Active, Integer role_ID, UserRoles userRole) {
-        this.user_ID = user_ID;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.is_Active = is_Active;
-        this.role_ID = role_ID;
-        this.userRole = userRole;
-    }
-
-    public User(String username, String email, String password, String firstName, String lastName, Boolean is_Active, Integer role_ID) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.is_Active = is_Active;
-        this.role_ID = role_ID;
-    }
-
-    public User(int user_ID, String username, String email, String password, String firstName, String lastName, Boolean is_Active, Integer role_ID) {
-        this.user_ID = user_ID;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.is_Active = is_Active;
-        this.role_ID = role_ID;
     }
 
     public User(String username, String email, String password, String firstName, String lastName) {
@@ -71,6 +29,17 @@ public class User implements Serializable {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public User(int user_id, String username, String email, String password, String first_name, String last_name, boolean is_active, UserRoles userRoles) {
+        this.user_ID = user_id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.firstName = first_name;
+        this.lastName = last_name;
+        this.is_Active = is_active;
+        this.userRoles = userRoles;
     }
 
     public String getUsername() {
@@ -129,19 +98,21 @@ public class User implements Serializable {
         this.is_Active = is_Active;
     }
 
-    public Integer getRole_ID() {
-        return role_ID;
+//    public UserRoles getRole_ID() {
+//        return role_ID;
+//    }
+//
+//    public void setRole_ID(UserRoles role_ID) {
+//        this.role_ID = role_ID;
+//    }
+
+    public UserRoles getUserRoles() {
+        return userRoles;
     }
 
-    public void setRole_ID(Integer role_ID) {
-        this.role_ID = role_ID;
+    public void setUserRoles(UserRoles userRoles) {
+        this.userRoles = userRoles;
     }
 
-    public UserRoles getUserRole() {
-        return userRole;
-    }
 
-    public void setUserRole(UserRoles userRole) {
-        this.userRole = userRole;
-    }
 }

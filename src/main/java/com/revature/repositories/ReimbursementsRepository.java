@@ -1,13 +1,18 @@
 package com.revature.repositories;
 
+import com.revature.model.ReimbursementStatuses;
+import com.revature.model.ReimbursementTypes;
 import com.revature.model.Reimbursements;
+import com.revature.model.User;
 import com.revature.util.ConnectionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReimbursementsRepository implements DAO<Reimbursements>{
@@ -47,7 +52,36 @@ public class ReimbursementsRepository implements DAO<Reimbursements>{
 
     @Override
     public List<Reimbursements> getAll() {
-        return null;
+        List<Reimbursements> reimbursements = new ArrayList<>();
+
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "select * from ers_reimbursements";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            ResultSet resultSet = stmt.executeQuery();
+
+            while(resultSet.next()){
+                reimbursements.add(new Reimbursements(
+                        resultSet.getInt("reimb_id"),
+                        resultSet.getDouble("amount"),
+                        resultSet.getTimestamp("submitted"),
+                        resultSet.getTimestamp("resolved"),
+                        resultSet.getString("description"),
+                        resultSet.getInt("payment_id"),
+                        resultSet.getInt("author_id"),
+                        resultSet.getInt("resolver_id"),
+                        ReimbursementStatuses.values()[resultSet.getInt("status_id")],
+                        ReimbursementTypes.values()[resultSet.getInt("type_id")]));
+            }
+
+
+        } catch (Exception e) {
+            logger.warn(e);
+        }
+        return reimbursements;
+
+
+
     }
 
     @Override

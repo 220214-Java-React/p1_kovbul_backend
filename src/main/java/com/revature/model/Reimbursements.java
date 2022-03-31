@@ -60,6 +60,8 @@ public class Reimbursements implements Serializable {
         this.type_id = type_id;
     }
 
+//    public Reimbursements(int reimb_id, double amount, Timestamp submitted, Timestamp resolved, String description, int payment_id, int author_id, int resolver_id, int status_id, int type_id) {
+//    }
 
 
     public Integer getReimb_id() {

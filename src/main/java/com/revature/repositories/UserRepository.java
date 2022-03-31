@@ -1,6 +1,7 @@
 package com.revature.repositories;
 
 import com.revature.model.User;
+import com.revature.model.UserRoles;
 import com.revature.util.ConnectionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,7 +34,7 @@ public class UserRepository implements DAO<User> {
                 stmt.setString(4, user.getFirstName());
                 stmt.setString(5, user.getLastName());
                 stmt.setBoolean(6, user.getIs_Active());
-                stmt.setInt(7, user.getUserRole().ordinal());
+                stmt.setInt(7, user.getUserRoles().ordinal());
                 //stmt.setInt(7, user.getRole_ID());
 
                 stmt.executeUpdate();
@@ -76,7 +77,7 @@ public class UserRepository implements DAO<User> {
                                 resultSet.getString("first_name"),
                                 resultSet.getString("last_name"),
                                 resultSet.getBoolean("is_active"),
-                                resultSet.getInt("role_id")));
+                                UserRoles.values()[resultSet.getInt("role_id")]));
             }
 
 

@@ -6,6 +6,7 @@ import com.revature.repositories.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
 import java.util.List;
 
 public class UserService {
@@ -21,14 +22,16 @@ public class UserService {
 
 
     public void create(User user) {
+
         //going to need to encrypt password in here
-        String encryptedPass = encryptPassword(user.getPassword());
-        user.setPassword(encryptedPass);
+//        String encryptedPass = encryptPassword(user.getPassword());
+//        user.setPassword(encryptedPass);
 
         userRepository.create(user);
     }
 
     //ToDO Play around with this and get a list from database
+
     public List<User> getAll() {
         return userRepository.getAll();
     }

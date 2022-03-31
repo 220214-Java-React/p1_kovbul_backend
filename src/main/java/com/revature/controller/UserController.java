@@ -25,18 +25,25 @@ public class UserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         List<User> users = userService.getAll();
+        String JSON;
+            try{
+                JSON = mapper.writeValueAsString(users);
 
-        String JSON = mapper.writeValueAsString(users);
-        response.setContentType("application/json");
-        response.setStatus(200);
-        response.getOutputStream().println(JSON);
+                response.setContentType("application/json");
+                response.setStatus(200);
+                response.getOutputStream().println(JSON);
+
+            }catch(Exception e){
+                logger.warn(e);
+            }
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String JSON = req.getReader().lines().collect(Collectors.joining());
-        User user = null;
+        User user;
 
 
         try {
