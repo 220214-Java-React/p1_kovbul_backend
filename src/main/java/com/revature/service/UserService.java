@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 public class UserService {
+    private static User currentUser;
     private final Logger logger;
     private final UserRepository userRepository;
     private final BCrypt.Hasher hasher;
@@ -36,7 +37,7 @@ public class UserService {
         return userRepository.getAll();
     }
 
-//    private String getUsername() {
+    //    private String getUsername() {
 //        String username = "";
 //        boolean valid = false;
 //
@@ -72,11 +73,22 @@ public class UserService {
 //        return encryptPassword(password);
 //    }
 //
-    private String encryptPassword(String password){
+    private String encryptPassword(String password) {
         return hasher.hashToString(4, password.toCharArray());
     }
 
+    public User validate(User user) {
+        User dbUser = userRepository.getByUsername(user.getUsername());
+
+        //TODO: Add encryption to this
+        if (dbUser != null) {
+            currentUser = dbUser;
+            return dbUser;
+        }
+        return null;
+    }
 }
+
 
 
 

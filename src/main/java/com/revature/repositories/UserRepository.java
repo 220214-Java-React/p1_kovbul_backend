@@ -58,6 +58,37 @@ public class UserRepository implements DAO<User> {
         return null;
     }
 
+
+    public User getByUsername(String username){
+        User user = null;
+        String sql = "select * from ers_users where username = ?";
+        Connection connection;
+
+        try{
+            connection = ConnectionFactory.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setString(1, username);
+
+            ResultSet resultSet = stmt.executeQuery();;
+
+            if(resultSet.next()){
+                user = new User(
+                        resultSet.getInt("user_id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("email"),
+                        resultSet.getString("password"),
+                        resultSet.getString("first_name"),
+                        resultSet.getString("last_name"),
+                        resultSet.getBoolean("is_active"),
+                        UserRoles.values()[resultSet.getInt("role_id")]);
+            }
+        } catch (Exception e){
+            logger.warn(e.getMessage(), e);
+        }
+        return user;
+    }
+
     @Override
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
