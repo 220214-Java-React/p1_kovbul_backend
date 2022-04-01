@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
             userRepository = new UserRepository();
         }
 
-        //Testing the user is being put into the database properly
+        //Testing the user is being put into the database.
         @Test
         public void whenCreateUserIsCalledDoesNotThrowExceptionAndUserIsCreated() {
             User user = new User("Test1", "Password1");
