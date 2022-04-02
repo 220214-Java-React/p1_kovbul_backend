@@ -11,7 +11,6 @@ public class User implements Serializable {
     private String password;
     private String firstName;
     private String lastName;
-    private Boolean is_Active;
     private UserRoles userRoles;
 
     public User(){
@@ -31,14 +30,22 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public User(int user_id, String username, String email, String password, String first_name, String last_name, boolean is_active, UserRoles userRoles) {
+    public User(int user_id, String username, String email, String password, String first_name, String last_name, UserRoles userRoles) {
         this.user_ID = user_id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.firstName = first_name;
         this.lastName = last_name;
-        this.is_Active = is_active;
+        this.userRoles = userRoles;
+    }
+
+    public User(String username, String email, String password, String firstName, String lastName, UserRoles userRoles) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.userRoles = userRoles;
     }
 
@@ -90,13 +97,7 @@ public class User implements Serializable {
         this.user_ID = user_ID;
     }
 
-    public Boolean getIs_Active() {
-        return is_Active;
-    }
 
-    public void setIs_Active(Boolean is_Active) {
-        this.is_Active = is_Active;
-    }
 
 //    public UserRoles getRole_ID() {
 //        return role_ID;

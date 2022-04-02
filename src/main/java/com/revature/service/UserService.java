@@ -87,6 +87,10 @@ public class UserService {
         }
         return null;
     }
+
+    public User getByUsername(String username) {
+        return userRepository.getByUsername(username);
+    }
 }
 
 

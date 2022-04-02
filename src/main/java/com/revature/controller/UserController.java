@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,21 +24,43 @@ public class UserController extends HttpServlet {
     private static final UserService userService = new UserService();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        List<User> users = userService.getAll();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String JSON;
-            try{
+
+
+        String username = request.getParameter("username");
+
+        if (username != null) {
+
+            User user = userService.getByUsername(username);
+            logger.debug(user.toString());
+            JSON = mapper.writeValueAsString(user);
+            response.setContentType("application/json");
+            response.setStatus(200);
+            response.getOutputStream().println(JSON);
+        } else {
+
+
+            List<User> users = userService.getAll();
+
+            try {
                 JSON = mapper.writeValueAsString(users);
 
                 response.setContentType("application/json");
                 response.setStatus(200);
                 response.getOutputStream().println(JSON);
 
-            }catch(Exception e){
+            } catch (Exception e) {
                 logger.warn(e);
             }
 
+        }
     }
+
+
+
+
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
