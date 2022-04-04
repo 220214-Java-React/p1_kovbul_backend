@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,19 +51,36 @@ public class ReimbursementsController extends HttpServlet {
     @Override
     //TODO Working on getting information according to the authors ID
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Reimbursements> reimbursements = reimbursementsService.getAll();
+        List<Reimbursements> reimbursements = new ArrayList<>();
         String authorId = request.getParameter("author_id");
-        //String role_id =
-        String JSON;
-            try{
-                JSON = mapper.writeValueAsString(reimbursements);
+        String role_id = request.getParameter("role_id");
+        String user_id = request.getParameter("user_id");
+        //String JSON;
+        logger.info(user_id);
+        logger.info(authorId);
+        //TODO: MUST FIND OUT WHY THIS IS NULL!
+        logger.info(role_id);
+        if (authorId != null) {
+            //List<Reimbursements>
+            reimbursements = reimbursementsService.getByAuthorId(Integer.parseInt(authorId));
+            String JSON = mapper.writeValueAsString(reimbursements);
+            response.setContentType("application/json");
+            response.setStatus(200);
+            response.getOutputStream().println(JSON);
 
+            logger.info(JSON);
+        } else {
+            try {
+
+                //List<Reimbursements> reimbursements = reimbursementsService.getAll();
+                String JSON = mapper.writeValueAsString(reimbursements);
                 response.setContentType("application/json");
                 response.setStatus(200);
                 response.getOutputStream().println(JSON);
-            } catch(Exception e){
+            } catch (Exception e) {
                 logger.warn(e);
             }
 
+        }
     }
 }

@@ -22,7 +22,8 @@ public class Reimbursements implements Serializable {
     }
 
 
-    public Reimbursements(Integer reimb_id, Double amount, Timestamp submitted, Timestamp resolved, String description, Integer payment_id, Integer author_id, Integer resolver_id, ReimbursementStatuses status_id, ReimbursementTypes type_id) {
+
+    public Reimbursements(Integer reimb_id, Double amount, Timestamp submitted, Timestamp resolved, String description, Integer payment_id, Integer author_id, ReimbursementStatuses status_id, ReimbursementTypes type_id) {
         this.reimb_id = reimb_id;
         this.amount = amount;
         this.submitted = submitted;
@@ -30,7 +31,6 @@ public class Reimbursements implements Serializable {
         this.description = description;
         this.payment_id = payment_id;
         this.author_id = author_id;
-        this.resolver_id = resolver_id;
         this.status_id = status_id;
         this.type_id = type_id;
 

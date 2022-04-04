@@ -54,7 +54,7 @@ public class ReimbursementsRepository implements DAO<Reimbursements>{
         List<Reimbursements> reimbursements = new ArrayList<>();
 
         try(Connection connection = ConnectionFactory.getConnection()){
-            String sql = "select * from flashcards where author_id = ?";
+            String sql = "select * from ers_reimbursements where author_id = ?";
 
             PreparedStatement stmt = connection.prepareStatement(sql);
 
@@ -72,7 +72,6 @@ public class ReimbursementsRepository implements DAO<Reimbursements>{
                                 rs.getString("description"),
                                 rs.getInt("payment_id"),
                                 rs.getInt("author_id"),
-                                rs.getInt("resolver_id"),
                                 ReimbursementStatuses.values()[rs.getInt("status_id")],
                                 ReimbursementTypes.values()[rs.getInt("type_id")]));
 
@@ -104,7 +103,6 @@ public class ReimbursementsRepository implements DAO<Reimbursements>{
                         resultSet.getString("description"),
                         resultSet.getInt("payment_id"),
                         resultSet.getInt("author_id"),
-                        resultSet.getInt("resolver_id"),
                         ReimbursementStatuses.values()[resultSet.getInt("status_id")],
                         ReimbursementTypes.values()[resultSet.getInt("type_id")]));
             }

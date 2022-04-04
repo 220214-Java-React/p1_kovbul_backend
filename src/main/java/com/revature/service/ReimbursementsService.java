@@ -22,4 +22,9 @@ public class ReimbursementsService {
 
     public List<Reimbursements> getAll() {
         return reimbursementsRepository.getAll();}
+
+    public List<Reimbursements> getByAuthorId(int parseInt) {
+        return reimbursementsRepository.getByAuthorId(parseInt);
+
+    }
 }
