@@ -33,7 +33,6 @@ public class UserController extends HttpServlet {
         if (username != null) {
 
             User user = userService.getByUsername(username);
-            logger.debug(user.toString());
             JSON = mapper.writeValueAsString(user);
             response.setContentType("application/json");
             response.setStatus(200);

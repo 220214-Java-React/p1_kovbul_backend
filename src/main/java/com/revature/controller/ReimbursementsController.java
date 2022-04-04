@@ -2,12 +2,14 @@ package com.revature.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.model.ReimbursementStatuses;
 import com.revature.model.Reimbursements;
 import com.revature.service.ReimbursementsService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,12 +29,16 @@ public class ReimbursementsController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String JSON = req.getReader().lines().collect(Collectors.joining());
-        Reimbursements reimbursements = null;
-
+        ReimbursementStatuses reimbursementStatuses = ReimbursementStatuses.valueOf("Pending");
+        Reimbursements reimbursements;
+        System.out.println(JSON);
+        int paymentID = 0;
         try {
             reimbursements = mapper.readValue(JSON, Reimbursements.class);
-            reimbursementsService.create(reimbursements);
 
+            reimbursements.setStatus_id(reimbursementStatuses);
+            //reimbursements.setPayment_id(Integer.parseInt(String.valueOf(paymentID)));
+            reimbursementsService.create(reimbursements);
             resp.setStatus(204);
 
         } catch (Exception e) {
@@ -42,8 +48,11 @@ public class ReimbursementsController extends HttpServlet {
     }
 
     @Override
+    //TODO Working on getting information according to the authors ID
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Reimbursements> reimbursements = reimbursementsService.getAll();
+        String authorId = request.getParameter("author_id");
+        //String role_id =
         String JSON;
             try{
                 JSON = mapper.writeValueAsString(reimbursements);

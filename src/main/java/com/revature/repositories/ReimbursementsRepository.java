@@ -38,7 +38,7 @@ public class ReimbursementsRepository implements DAO<Reimbursements>{
             stmt.setInt(8, reimbursements.getType_id().ordinal());
 
             stmt.executeUpdate();
-
+            System.out.println(stmt);
         } catch (Exception e) {
             logger.warn(e.getMessage(), e);
         }
@@ -48,6 +48,41 @@ public class ReimbursementsRepository implements DAO<Reimbursements>{
         @Override
     public Reimbursements getById(int id) {
         return null;
+    }
+
+    public List<Reimbursements> getByAuthorId(int author_id){
+        List<Reimbursements> reimbursements = new ArrayList<>();
+
+        try(Connection connection = ConnectionFactory.getConnection()){
+            String sql = "select * from flashcards where author_id = ?";
+
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setInt(1, author_id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                reimbursements.add(
+                        new Reimbursements(
+                                rs.getInt("reimb_id"),
+                                rs.getDouble("amount"),
+                                rs.getTimestamp("submitted"),
+                                rs.getTimestamp("resolved"),
+                                rs.getString("description"),
+                                rs.getInt("payment_id"),
+                                rs.getInt("author_id"),
+                                rs.getInt("resolver_id"),
+                                ReimbursementStatuses.values()[rs.getInt("status_id")],
+                                ReimbursementTypes.values()[rs.getInt("type_id")]));
+
+
+            }
+        }catch (Exception e){
+            logger.warn(e.getMessage(), e);
+        }
+        return reimbursements;
+
     }
 
     @Override

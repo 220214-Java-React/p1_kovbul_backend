@@ -24,10 +24,9 @@ public class UserService {
 
     public void create(User user) {
 
-        //going to need to encrypt password in here
-//        String encryptedPass = encryptPassword(user.getPassword());
-//        user.setPassword(encryptedPass);
 
+        //String encryptedPass = encryptPassword(user.getPassword());
+        //user.setPassword(encryptedPass);
         userRepository.create(user);
     }
 
@@ -82,11 +81,15 @@ public class UserService {
 
         //TODO: Add encryption to this
         if (dbUser != null) {
-            currentUser = dbUser;
-            return dbUser;
+            if (dbUser.getPassword().equals((user.getPassword()))) {
+                currentUser = dbUser;
+                return dbUser;
+            }
+
         }
         return null;
     }
+
 
     public User getByUsername(String username) {
         return userRepository.getByUsername(username);
