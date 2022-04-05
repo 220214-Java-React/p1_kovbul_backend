@@ -51,36 +51,45 @@ public class ReimbursementsController extends HttpServlet {
     @Override
     //TODO Working on getting information according to the authors ID
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Reimbursements> reimbursements = new ArrayList<>();
+        //List<Reimbursements> reimbursements;
         String authorId = request.getParameter("author_id");
         String role_id = request.getParameter("role_id");
-        String user_id = request.getParameter("user_id");
-        //String JSON;
-        logger.info(user_id);
+
         logger.info(authorId);
-        //TODO: MUST FIND OUT WHY THIS IS NULL!
         logger.info(role_id);
-        if (authorId != null) {
-            //List<Reimbursements>
-            reimbursements = reimbursementsService.getByAuthorId(Integer.parseInt(authorId));
-            String JSON = mapper.writeValueAsString(reimbursements);
-            response.setContentType("application/json");
-            response.setStatus(200);
-            response.getOutputStream().println(JSON);
 
-            logger.info(JSON);
-        } else {
-            try {
+        if(role_id.equals("Employee")) {
 
-                //List<Reimbursements> reimbursements = reimbursementsService.getAll();
+
+            List<Reimbursements> reimbursements;
+            if (authorId != null) {
+                //List<Reimbursements>
+                reimbursements = reimbursementsService.getByAuthorId(Integer.parseInt(authorId));
                 String JSON = mapper.writeValueAsString(reimbursements);
                 response.setContentType("application/json");
                 response.setStatus(200);
                 response.getOutputStream().println(JSON);
-            } catch (Exception e) {
-                logger.warn(e);
-            }
 
+                logger.info(JSON);
+            } else {
+                try {
+
+                    reimbursements = reimbursementsService.getAll();
+                    String JSON = mapper.writeValueAsString(reimbursements);
+                    response.setContentType("application/json");
+                    response.setStatus(200);
+                    response.getOutputStream().println(JSON);
+                } catch (Exception e) {
+                    logger.warn(e);
+                }
+            }
+        }
+        else{
+            List<Reimbursements> reimbursements = reimbursementsService.getAll();
+            String JSON = mapper.writeValueAsString(reimbursements);
+            response.setContentType("application/json");
+            response.setStatus(200);
+            response.getOutputStream().println(JSON);
         }
     }
 }
