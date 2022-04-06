@@ -3,7 +3,6 @@ package com.revature.repositories;
 import com.revature.model.ReimbursementStatuses;
 import com.revature.model.ReimbursementTypes;
 import com.revature.model.Reimbursements;
-import com.revature.model.User;
 import com.revature.util.ConnectionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +36,6 @@ public class ReimbursementsRepository implements DAO<Reimbursements>{
             stmt.setInt(8, reimbursements.getType_id().ordinal());
 
             stmt.executeUpdate();
-            System.out.println(stmt);
         } catch (Exception e) {
             logger.warn(e.getMessage(), e);
         }
@@ -83,6 +80,42 @@ public class ReimbursementsRepository implements DAO<Reimbursements>{
         return reimbursements;
 
     }
+    public Reimbursements getByReimbursementID(int reimb_id){
+        Reimbursements reimbursements = null;
+        logger.info(reimbursements);
+        try{
+            Connection connection = ConnectionFactory.getConnection();
+            String sql = "select * from ers_reimbursements where reimb_id = ?";
+
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            logger.info(stmt);
+            stmt.setInt(1, reimb_id);
+
+            ResultSet rs = stmt.executeQuery();
+            logger.info(rs);
+
+            if (rs.next()){
+                reimbursements =
+                        new Reimbursements(
+                                rs.getInt("reimb_id"),
+                                rs.getDouble("amount"),
+                                rs.getTimestamp("submitted"),
+                                rs.getTimestamp("resolved"),
+                                rs.getString("description"),
+                                rs.getInt("payment_id"),
+                                rs.getInt("author_id"),
+                                ReimbursementStatuses.values()[rs.getInt("status_id")],
+                                ReimbursementTypes.values()[rs.getInt("type_id")]);
+
+
+            }
+            logger.info(reimbursements);
+        }catch (Exception e){
+            logger.warn(e.getMessage(), e);
+        }
+        return reimbursements;
+
+    }
 
     @Override
     public List<Reimbursements> getAll() {
@@ -120,9 +153,23 @@ public class ReimbursementsRepository implements DAO<Reimbursements>{
     @Override
     public void update(Reimbursements reimbursements) {
 
+        try (Connection connection = ConnectionFactory.getConnection()) {
+            String sql = "update ers_reimbursements set status_id = ? where reimb_id = ?";
+
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setInt(1, reimbursements.getStatus_id().ordinal());
+            stmt.setInt(2, reimbursements.getReimb_id());
+
+            stmt.executeUpdate();
+
+
+        } catch (Exception e) {
+            logger.warn(e.getMessage(), e);
+        }
     }
 
-    @Override
+        @Override
     public void deleteById(int id) {
 
     }

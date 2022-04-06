@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class UserService {
@@ -14,6 +15,7 @@ public class UserService {
     private final Logger logger;
     private final UserRepository userRepository;
     private final BCrypt.Hasher hasher;
+    private final String SALT = "xEZew5rGNU?tyoF.";
 
     public UserService() {
         this.userRepository = new UserRepository();
@@ -23,10 +25,8 @@ public class UserService {
 
 
     public void create(User user) {
-
-
-        //String encryptedPass = encryptPassword(user.getPassword());
-        //user.setPassword(encryptedPass);
+//        String encryptedPass = encryptPassword(user.getPassword());
+//        user.setPassword(encryptedPass);
         userRepository.create(user);
     }
 
@@ -36,45 +36,6 @@ public class UserService {
         return userRepository.getAll();
     }
 
-    //    private String getUsername() {
-//        String username = "";
-//        boolean valid = false;
-//
-//        while (!valid) {
-//            System.out.print("Username: ");
-//            username = scanner.nextLine();
-//
-//            TODO: Username validation
-//            if (username.length() > 4) {
-//                valid = true;
-//            } else {
-//                System.out.println("Username must be longer than 4 characters.");
-//            }
-//        }
-//        return username;
-//    }
-//
-//    private String getPassword(){
-//        String password = "";
-//        boolean valid = false;
-//
-//        while(!valid){
-//            System.out.print("Password: ");
-//            password = scanner.nextLine();
-//
-//            TODO: Password validation
-//            if(password.length() > 4){
-//                valid = true;
-//            } else{
-//                System.out.println("Password must be longer than 4 characters.");
-//            }
-//        }
-//        return encryptPassword(password);
-//    }
-//
-    private String encryptPassword(String password) {
-        return hasher.hashToString(4, password.toCharArray());
-    }
 
     public User validate(User user) {
         User dbUser = userRepository.getByUsername(user.getUsername());
@@ -94,8 +55,15 @@ public class UserService {
     public User getByUsername(String username) {
         return userRepository.getByUsername(username);
     }
+
+
+//    private String encryptPassword(String password) {
+//        return new String(
+//                hasher.hash(4, SALT.getBytes(StandardCharsets.UTF_8),
+//                        password.getBytes(StandardCharsets.UTF_8)),
+//                StandardCharsets.UTF_8);
+//    }
+
 }
-
-
 
 

@@ -27,4 +27,13 @@ public class ReimbursementsService {
         return reimbursementsRepository.getByAuthorId(parseInt);
 
     }
+
+    public void updateStatus_ID(Reimbursements reimbursements) {
+        reimbursementsRepository.update(reimbursements);
+    }
+
+    public Reimbursements getByReimbursementID(Integer reimb_id) {
+        logger.info(reimb_id);
+        return reimbursementsRepository.getByReimbursementID(reimb_id);
+    }
 }
