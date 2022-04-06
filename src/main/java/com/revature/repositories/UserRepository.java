@@ -13,7 +13,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+// implements DAO
+
 public class UserRepository implements DAO<User> {
+
+    // creating user in database
+
     private static final Logger logger = LogManager.getLogger(UserRepository.class);
     @Override
     public void create(User user) {

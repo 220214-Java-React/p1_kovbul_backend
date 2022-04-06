@@ -10,6 +10,9 @@ import org.apache.logging.log4j.Logger;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+
+// connecting user controller to user repository
+
 public class UserService {
     private static User currentUser;
     private final Logger logger;
@@ -36,6 +39,7 @@ public class UserService {
         return userRepository.getAll();
     }
 
+// validating user login by username, cannot login with invalid details
 
     public User validate(User user) {
         User dbUser = userRepository.getByUsername(user.getUsername());

@@ -1,5 +1,8 @@
 package com.revature.model;
 
+
+// enum for reimbursement statuses
+
 public enum ReimbursementStatuses {
 
     Pending("Pending"),

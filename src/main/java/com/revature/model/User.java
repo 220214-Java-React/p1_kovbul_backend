@@ -13,9 +13,14 @@ public class User implements Serializable {
     private String lastName;
     private UserRoles userRoles;
 
+
+    // empty user constructor
+
     public User(){
 
     }
+
+    // constructor
 
     public User(String username, String email, String password, String firstName, String lastName) {
         this.username = username;
@@ -48,6 +53,9 @@ public class User implements Serializable {
         this.lastName = lastName;
         this.userRoles = userRoles;
     }
+
+
+    // getters and setters
 
     public String getUsername() {
         return username;

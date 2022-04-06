@@ -7,6 +7,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
+// connecting getters and setters to communicate with controllers and repositories
+
 public class ReimbursementsService {
     private final Logger logger;
     private final ReimbursementsRepository reimbursementsRepository;

@@ -15,12 +15,14 @@ public class Reimbursements implements Serializable {
     private ReimbursementStatuses status_id;
     private ReimbursementTypes type_id;
 
+    // empty reimbursement constructor
 
     public Reimbursements(){
 
     }
 
 
+    // reimbursement constructor with reimb, amount, timestamp sub and res, description, payment id, author id, status id, type id
 
     public Reimbursements(Integer reimb_id, Double amount, Timestamp submitted, Timestamp resolved, String description, Integer payment_id, Integer author_id, ReimbursementStatuses status_id, ReimbursementTypes type_id) {
         this.reimb_id = reimb_id;
@@ -35,6 +37,8 @@ public class Reimbursements implements Serializable {
 
     }
 
+    // reimbursement constructor same as above but without reimb id
+
     public Reimbursements(Double amount, Timestamp submitted, Timestamp resolved, String description, Integer payment_id, Integer author_id, ReimbursementStatuses status_id, ReimbursementTypes type_id) {
         this.amount = amount;
         this.submitted = submitted;
@@ -48,15 +52,20 @@ public class Reimbursements implements Serializable {
 
     }
 
+    // constructor for enum reimbursement statuses
+
     public Reimbursements(ReimbursementStatuses status_id) {
         this.status_id = status_id;
     }
+
+    // constructor with reimb- id and status id
 
     public Reimbursements(Integer reimb_id, ReimbursementStatuses status_id) {
         this.reimb_id = reimb_id;
         this.status_id = status_id;
     }
 
+    // constructor with amount, submitted, description, author_id, status id, type id
     public Reimbursements(Double amount, Timestamp submitted, String description, Integer author_id, ReimbursementStatuses status_id, ReimbursementTypes type_id) {
         this.amount = amount;
         this.submitted = submitted;

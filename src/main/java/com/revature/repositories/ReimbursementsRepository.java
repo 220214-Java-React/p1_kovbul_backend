@@ -13,12 +13,17 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+//Repository for reimbursements to connect to the database
 public class ReimbursementsRepository implements DAO<Reimbursements>{
+    //Logger to log information
     private static final Logger logger = LogManager.getLogger(UserRepository.class);
+
+    //Create class for the user to create reimbursements
     @Override
     public void create(Reimbursements reimbursements) {
         Connection connection = null;
 
+        //Connection to connect to the database to store the information asked for in the stmt
         try{
             connection = ConnectionFactory.getConnection();
 
@@ -31,7 +36,6 @@ public class ReimbursementsRepository implements DAO<Reimbursements>{
             stmt.setString(4, reimbursements.getDescription());
             stmt.setInt(5, reimbursements.getPayment_id());
             stmt.setInt(6, reimbursements.getAuthor_id());
-//            stmt.setInt(7, reimbursements.getResolver_id());
             stmt.setInt(7, reimbursements.getStatus_id().ordinal());
             stmt.setInt(8, reimbursements.getType_id().ordinal());
 
@@ -43,24 +47,26 @@ public class ReimbursementsRepository implements DAO<Reimbursements>{
         }
 
         @Override
-    public Reimbursements getById(int id) {
+        public Reimbursements getById(int id) {
         return null;
     }
 
-    public List<Reimbursements> getByAuthorId(int author_id){
-        List<Reimbursements> reimbursements = new ArrayList<>();
+        //Selects a particular users reimbursements by their user id
+        public List<Reimbursements> getByAuthorId(int author_id){
+            List<Reimbursements> reimbursements = new ArrayList<>();
 
-        try(Connection connection = ConnectionFactory.getConnection()){
-            String sql = "select * from ers_reimbursements where author_id = ?";
+            //Connects to the database and retrieves information asked by the sql by author Id
+            try(Connection connection = ConnectionFactory.getConnection()){
+                String sql = "select * from ers_reimbursements where author_id = ?";
 
-            PreparedStatement stmt = connection.prepareStatement(sql);
+                PreparedStatement stmt = connection.prepareStatement(sql);
 
-            stmt.setInt(1, author_id);
+                stmt.setInt(1, author_id);
 
-            ResultSet rs = stmt.executeQuery();
+                ResultSet rs = stmt.executeQuery();
 
-            while(rs.next()){
-                reimbursements.add(
+                while(rs.next()){
+                    reimbursements.add(
                         new Reimbursements(
                                 rs.getInt("reimb_id"),
                                 rs.getDouble("amount"),
@@ -80,6 +86,8 @@ public class ReimbursementsRepository implements DAO<Reimbursements>{
         return reimbursements;
 
     }
+    //Gets by the reimbursement ID number of a particular reimbursement request
+    //Used to then update the status of that request
     public Reimbursements getByReimbursementID(int reimb_id){
         Reimbursements reimbursements = null;
         logger.info(reimbursements);
@@ -118,6 +126,7 @@ public class ReimbursementsRepository implements DAO<Reimbursements>{
     }
 
     @Override
+    //Gets all the reimbursements requests, used for finance manager to view all
     public List<Reimbursements> getAll() {
         List<Reimbursements> reimbursements = new ArrayList<>();
 
@@ -151,6 +160,7 @@ public class ReimbursementsRepository implements DAO<Reimbursements>{
     }
 
     @Override
+    //Updates the status id depending on the reimbursement ID
     public void update(Reimbursements reimbursements) {
 
         try (Connection connection = ConnectionFactory.getConnection()) {

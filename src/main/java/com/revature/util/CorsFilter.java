@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.*;
 import java.io.IOException;
 
+// cors filter to access server web page, without cors filter will have no access;
 
 public class CorsFilter implements Filter {
 
